@@ -48,7 +48,7 @@ module.exports = function searchCandidates(keyword, filters, limit=1000){
         sphinx.SetMatchMode(Sphinx.SPH_MATCH_EXTENDED);
         sphinx.SetLimits(0, limit);
         Object.entries(filters).forEach(([key, value]) => {
-            sphinx.SetFilter(key, [value]);
+            sphinx.SetFilterString(key, value);
         });
         sphinx.Query(query, 'CandidateIndex', function(error, result) {
             if (error) {
@@ -58,5 +58,4 @@ module.exports = function searchCandidates(keyword, filters, limit=1000){
             resolve(result);
         });
     });
-
 }
